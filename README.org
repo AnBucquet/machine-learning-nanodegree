@@ -2,9 +2,9 @@
 
 ** Links
 
-[[https://docs.google.com/document/d/1np1OCVktcEkiNC3vhSoNJPZi3OoTb_ZvOtWK6aEMzP0/pub?embedded=true][Nanodegree Student Handbook]]
-[[https://docs.google.com/document/d/1Bf1jEkKlCYJJdUoyBSROxPS5FsZlAaZ8cZ35GsHhpYU/pub?embedded=true][Career workshops]]
-[[https://profiles.udacity.com/u/edit][Udacity professional profile]]
-[[http://discussions.udacity.com/categories][Program forum]]
-[[https://mlnd.slack.com/][Slack]]
-[[https://github.com/machinelearningnanodegree/MLND/wiki][Wiki]]
+- [[https://docs.google.com/document/d/1np1OCVktcEkiNC3vhSoNJPZi3OoTb_ZvOtWK6aEMzP0/pub?embedded=true][Nanodegree Student Handbook]]
+- [[https://docs.google.com/document/d/1Bf1jEkKlCYJJdUoyBSROxPS5FsZlAaZ8cZ35GsHhpYU/pub?embedded=true][Career workshops]]
+- [[https://profiles.udacity.com/u/edit][Udacity professional profile]]
+- [[http://discussions.udacity.com/categories][Program forum]]
+- [[https://mlnd.slack.com/][Slack]]
+- [[https://github.com/machinelearningnanodegree/MLND/wiki][Wiki]]
