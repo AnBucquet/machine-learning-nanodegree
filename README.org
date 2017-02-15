@@ -8,3 +8,8 @@
 - [[http://discussions.udacity.com/categories][Program forum]]
 - [[https://mlnd.slack.com/][Slack]]
 - [[https://github.com/machinelearningnanodegree/MLND/wiki][Wiki]]
+
+** Projects
+
+- [[https://github.com/yafeunteun/machine-learning-nanodegree/tree/master/titanic_survival_exploration][Titanic Survival Exploration]]
+
