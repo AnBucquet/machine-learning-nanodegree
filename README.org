@@ -12,7 +12,7 @@
 ** Projects
 
 - [[https://github.com/yafeunteun/machine-learning-nanodegree/tree/master/titanic_survival_exploration][Titanic Survival Exploration]]
-
+- [[https://github.com/yafeunteun/machine-learning-nanodegree/tree/master/boston_housing][Predicting Boston Housing Prices]]
 
 ** Licence 
 
