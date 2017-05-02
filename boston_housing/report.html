@@ -13834,7 +13834,7 @@ xVAAAAAASUVORK5CYII=
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p><strong>Answer: </strong>
-I choose the graph of the model with max_depth=3. Here we can see that the learning curves converge rapidly and adding more point would not increase the score since the two curves are almost crossing each other.</p>
+I choose the graph of the model with max_depth=3. Here we can see that the learning curves converge rapidly and adding more point would not increase the score since the two curves are almost crossing each other. Before convergence, the trend of the training curve is decreasing and even seems to plateau eventually. The testing curve is increasing too and also seems to plateau. This is why adding more point would probably not increase the score.</p>
 
 </div>
 </div>
@@ -14590,8 +14590,7 @@ When the model is trained with a maximum depth of 1, the model suffers from high
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p><strong>Answer: </strong></p>
-
-<pre><code>The maximum depth in a model that best generalizes to unseen data should be 2 or 3. 2 resulting in a low variance in the evaluation on the validation set but with a lower score. 3 resulting in a higher score but more uncertainty. We can see this on the curves, the closer the training curve and the validation curve, the better the generalization but we should also pay attention to the shadded areas that gives us information about the uncertainty i.e. the variation we can obtain from one evaluation to another. </code></pre>
+<p>We are looking for for a model that will perform well on new unseen data. Therefore we focus on te validation score curve. We are trying to maximize the score on this curve so we should choose the maximum depth that corresponds to a maximum on this curve that is 4.</p>
 
 </div>
 </div>
@@ -14645,7 +14644,7 @@ When the model is trained with a maximum depth of 1, the model suffers from high
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p><strong>Answer: </strong></p>
-<p>The k-fold validation training technique consists in dividing our taining set in K sets and thenperform the training on the K-1 first sets and the validation on the last one, then we do the same for every set. The resulting score is the average of the K scores. The advantage of such technique is that the model is trained using all the data available and so we diminish the risk of overfitting. This is something that could happen when using grid search without cross-validated set because the model is systematically trained and evaluated with the same data.</p>
+<p>The k-fold validation training technique consists in dividing our taining set in K sets and thenperform the training on the K-1 first sets and the validation on the last one, then we do the same for every set. The resulting score is the average of the K scores. The advantage of such technique is that the model is trained using all the data available and so we diminish the risk of overfitting. This is something that could happen when using grid search without cross-validated set because the model is systematically trained and evaluated with the same data. In fact, when using a simple train/test split on parameter tuning we are going to obtain the best model for the testing set, not for the entire dataset, we are only optimizing parameters for the same testing set. This would result in a model that generalizes poorly. On the other hand, when we use a k-fold crossvalidation, we are validating each model on all the data by averaging the performances obtained on each testing folds to compare each model with the others.</p>
 
 </div>
 </div>
@@ -14682,7 +14681,7 @@ For the <code>fit_model</code> function in the code cell below, you will need to
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[40]:</div>
+<div class="prompt input_prompt">In&nbsp;[86]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="c1"># TODO: Import &#39;make_scorer&#39;, &#39;DecisionTreeRegressor&#39;, and &#39;GridSearchCV&#39;</span>
@@ -14709,7 +14708,7 @@ For the <code>fit_model</code> function in the code cell below, you will need to
     <span class="n">scoring_fnc</span> <span class="o">=</span> <span class="n">make_scorer</span><span class="p">(</span><span class="n">performance_metric</span><span class="p">)</span>
 
     <span class="c1"># TODO: Create the grid search object</span>
-    <span class="n">grid</span> <span class="o">=</span> <span class="n">GridSearchCV</span><span class="p">(</span><span class="n">estimator</span><span class="o">=</span><span class="n">regressor</span><span class="p">,</span> <span class="n">param_grid</span><span class="o">=</span><span class="n">params</span><span class="p">,</span> <span class="n">scoring</span><span class="o">=</span><span class="n">scoring_fnc</span><span class="p">)</span>
+    <span class="n">grid</span> <span class="o">=</span> <span class="n">GridSearchCV</span><span class="p">(</span><span class="n">estimator</span><span class="o">=</span><span class="n">regressor</span><span class="p">,</span> <span class="n">param_grid</span><span class="o">=</span><span class="n">params</span><span class="p">,</span> <span class="n">scoring</span><span class="o">=</span><span class="n">scoring_fnc</span><span class="p">,</span> <span class="n">cv</span><span class="o">=</span><span class="n">cv_sets</span><span class="p">)</span>
 
     <span class="c1"># Fit the grid search object to the data to compute the optimal model</span>
     <span class="n">grid</span> <span class="o">=</span> <span class="n">grid</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
@@ -14746,7 +14745,7 @@ For the <code>fit_model</code> function in the code cell below, you will need to
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[80]:</div>
+<div class="prompt input_prompt">In&nbsp;[102]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="c1"># Fit the training data to the model using grid search</span>
@@ -14781,7 +14780,7 @@ For the <code>fit_model</code> function in the code cell below, you will need to
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p><strong>Answer: </strong></p>
-<p>The max_depth that produces an optimal model is 4 and 5 (depending on the shuffling). It differs from our guess in <strong>Question 6</strong> where I mistakenly thought that the training score and validation score should be as close as possible, in fact we should choose the model where the validation score is the maximum.</p>
+<p>The max_depth that produces an optimal model is 4. It corresponds to our guess in <strong>Question 6</strong> .</p>
 
 </div>
 </div>
@@ -14864,6 +14863,132 @@ Predicted selling price for Client 3&#39;s home: $931,636.36
 </div>
 
 </div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[103]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython2"><pre><span></span><span class="n">features</span><span class="o">.</span><span class="n">describe</span><span class="p">()</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt output_prompt">Out[103]:</div>
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>RM</th>
+      <th>LSTAT</th>
+      <th>PTRATIO</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>count</th>
+      <td>489.000000</td>
+      <td>489.000000</td>
+      <td>489.000000</td>
+    </tr>
+    <tr>
+      <th>mean</th>
+      <td>6.240288</td>
+      <td>12.939632</td>
+      <td>18.516564</td>
+    </tr>
+    <tr>
+      <th>std</th>
+      <td>0.643650</td>
+      <td>7.081990</td>
+      <td>2.111268</td>
+    </tr>
+    <tr>
+      <th>min</th>
+      <td>3.561000</td>
+      <td>1.980000</td>
+      <td>12.600000</td>
+    </tr>
+    <tr>
+      <th>25%</th>
+      <td>5.880000</td>
+      <td>7.370000</td>
+      <td>17.400000</td>
+    </tr>
+    <tr>
+      <th>50%</th>
+      <td>6.185000</td>
+      <td>11.690000</td>
+      <td>19.100000</td>
+    </tr>
+    <tr>
+      <th>75%</th>
+      <td>6.575000</td>
+      <td>17.120000</td>
+      <td>20.200000</td>
+    </tr>
+    <tr>
+      <th>max</th>
+      <td>8.398000</td>
+      <td>37.970000</td>
+      <td>22.000000</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[104]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython2"><pre><span></span><span class="n">prices</span><span class="o">.</span><span class="n">describe</span><span class="p">()</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt output_prompt">Out[104]:</div>
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>count    4.890000e+02
+mean     4.543429e+05
+std      1.653403e+05
+min      1.050000e+05
+25%      3.507000e+05
+50%      4.389000e+05
+75%      5.187000e+05
+max      1.024800e+06
+Name: MEDV, dtype: float64</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
 <div class="cell border-box-sizing text_cell rendered">
 <div class="prompt input_prompt">
 </div>
@@ -14877,8 +15002,29 @@ Then we made the hypothesis that</p>
 <li>If 'LSTAT' increases 'MEDV' decreases</li>
 <li>If 'PTRATIO' increases 'MEDV' decreases </li>
 </ul>
-<p>given that we should find that client 3's home price &gt; client 1's home price &gt; client 2's home price
-This is exactly what we have predicted so our results seems good.</p>
+<p>Moreover, let's compare these values to the descriptives stats of features and prices above:</p>
+<p>1- Client 1:</p>
+<ul>
+<li>RM = 5 this corresponds to the 1st quartile </li>
+<li>LSTAT = 17 this correponds to 3rd quartile </li>
+<li>PTRATIO = 15 this corresponds to the 1st quartile</li>
+</ul>
+<p>We could expect a price a little below the mean</p>
+<p>2- Client 2:</p>
+<ul>
+<li>RM = 4 this corresponds to the 1st quartile </li>
+<li>LSTAT = 32 this correponds to 4th quartile </li>
+<li>PTRATIO = 22 this corresponds to the 4th quartile (maximum value)</li>
+</ul>
+<p>We could expect a price a far below the mean, probably in the 1st quartile</p>
+<p>3- Client 3:</p>
+<ul>
+<li>RM = 8 this corresponds to the 4th quartile </li>
+<li>LSTAT = 3 this correponds to 1st quartile </li>
+<li>PTRATIO = 12 this corresponds to the 1st quartile (maximum value)</li>
+</ul>
+<p>We could expect a price a far above the mean, probably in the 4th quartile</p>
+<p>This is exactly what we have predicted so our results seems good.</p>
 
 </div>
 </div>
