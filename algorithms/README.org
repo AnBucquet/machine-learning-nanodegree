@@ -1,0 +1,5 @@
+* Simple implementation of some common algorithms in machine learning
+
+The intent of this folder is not to implement "the best" version of these algorithms but instead to come up with 
+a functional and simple version of each of them to improve the process of learning. 
+
